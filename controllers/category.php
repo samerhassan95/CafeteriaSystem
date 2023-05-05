@@ -1,9 +1,9 @@
 <?php
+// Start the session
 
 require_once('../config/database.php');
 
 session_start();
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category_name = $_POST['category_name'];
