@@ -12,7 +12,7 @@ if(!isset($_SESSION["email"])){
     exit();
 }
 
-
+// Get the email from the session
 $email = $_SESSION['email'];
 
 $errors = [];

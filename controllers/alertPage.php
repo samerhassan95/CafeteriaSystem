@@ -1,14 +1,3 @@
-<?php
-session_start();
-require_once('../navbar.php');
-
-if(!isset($_SESSION["email"]))
-{
-    header("Location:../alertPage.php");
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +7,7 @@ if(!isset($_SESSION["email"]))
     <title>Document</title>
 </head>
 <body>
-    <h1>This Is User Page</h1><?php echo  $_SESSION["email"]?>
-    <a href="../logout.php">Logout</a>
+    <h1>Access Denied</h1>
+    <h3>You don't have permission to access this page</h3>
 </body>
 </html>
