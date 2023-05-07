@@ -1,6 +1,6 @@
 <?php
 // store_order.php
-require_once(__DIR__ . '/../controllers/order_controller.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/order_controller.php');
 
 // Get the JSON data from the POST request
 $order_data = json_decode(file_get_contents('php://input'), true);

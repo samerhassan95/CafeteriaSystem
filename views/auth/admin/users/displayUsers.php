@@ -5,9 +5,9 @@ echo '
 
 // $db = require_once('../../config/database.php');
 
-require($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/views/navbar.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/views/navbar.php");
 
-require($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
 
 $UserController = new UserController();
 $users = $UserController->index();

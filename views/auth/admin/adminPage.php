@@ -1,14 +1,14 @@
 <?php
 
 session_start();
-include('../../navbar.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/views/navbar.php');
 
 if (!isset($_SESSION["email"])) {
     header("Location:../alertPage.php");
     exit;
 }
 
-require_once '../../../controllers/product_controller.php';
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/product_controller.php');
 
 $productController = new ProductController();
 $products = $productController->index();

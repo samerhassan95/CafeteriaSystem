@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../config/database.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/config/database.php');
 
 if($db){
     try {

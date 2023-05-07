@@ -9,7 +9,7 @@ error_reporting(E_ERROR | E_PARSE);
 ## Get the old data
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
+  include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
 
   $UserController = new UserController();
   $row = $UserController->getUserById($id);
@@ -23,7 +23,7 @@ if (isset($_GET["errors"])) {
   $errors = [];
 }
 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/room_controller.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/room_controller.php");
 $roomController = new roomController();
 $rooms = $roomController->index();
 

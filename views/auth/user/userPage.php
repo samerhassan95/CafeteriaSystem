@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../../navbar.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/views/navbar.php');
 
 if (!isset($_SESSION["email"])) {
     header("Location:../alertPage.php");

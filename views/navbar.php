@@ -109,9 +109,12 @@ echo '
           <li class="nav-item dropdown rounded">
             <a class="nav-link3 nav-link" href="http://localhost/cafeITI/views/auth/admin/users/displayUsers.php" id="shopDropdown"><i class="bi bi-cart4 me-2"></i>Users</a>
           </li>
-          <li class="nav-item dropdown rounded">
-            <a class="nav-link4 nav-link dropdown-toggle" href="#" id="pagesDropdown" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-text-fill me-2"></i>Manual Order</a>
-          </li>
+            <li class="nav-item dropdown rounded">
+                <a class="nav-link3 nav-link" href="http://localhost/cafeITI/views/auth/admin/orders/displayOrders.php" id="shopDropdown"><i class="bi bi-cart4 me-2"></i>Orders</a>
+            </li>
+<!--          <li class="nav-item dropdown rounded">-->
+<!--            <a class="nav-link4 nav-link dropdown-toggle" href="http://localhost/cafeITI/views/auth/admin/users/" id="pagesDropdown" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-text-fill me-2"></i>Manual Order</a>-->
+<!--          </li>-->
           <li class="nav-item rounded">
             <a class="nav-link5 nav-link" href="#"><i class="bi bi-people-fill me-2"></i>Checks</a>
           </li>
