@@ -1,0 +1,22 @@
+<form action="view_checks.php" method="GET">
+    <label for="start_date">Start date:</label>
+    <input type="date" name="start_date" id="start_date" required>
+    <br>
+    <label for="end_date">End date:</label>
+    <input type="date" name="end_date" id="end_date" required>
+    <br>
+    <label for="user_id">Select user:</label>
+    <select name="user_id" id="user_id">
+      <option value="">All users</option>
+      <?php
+        // Query the users table to retrieve the available user IDs and names
+        $users_query = "SELECT id, name FROM users";
+        $result = mysqli_query($conn, $users_query);
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+        }
+      ?>
+    </select>
+    <br>
+    <input type="submit" value="View Checks">
+  </form>
