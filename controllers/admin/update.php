@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../controllers/user_controller.php');
+include('../../controllers/user_controller.php');
 $userController = new UserController();
 $id = $_GET['id'];
 $result = $userController->update($id);

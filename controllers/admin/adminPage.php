@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once('../navbar.php');
+include('../navbar.php');
 
 if(!isset($_SESSION["email"]))
 {

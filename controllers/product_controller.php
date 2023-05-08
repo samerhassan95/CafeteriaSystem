@@ -1,6 +1,6 @@
 <?php
 // controllers/product.php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/cafeITI/models/product_model.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/models/product_model.php');
 
 class ProductController
 {
@@ -9,7 +9,7 @@ class ProductController
 
     public function __construct()
     {
-        $this->productModel = new ProductModel(require_once($_SERVER['DOCUMENT_ROOT'] . '/cafeITI/config/database.php'));
+        $this->productModel = new ProductModel(include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/config/database.php'));
     }
 
     public function index()

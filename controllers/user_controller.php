@@ -1,7 +1,7 @@
 <?php
 // controllers/user_controller.php
 
-require_once(__DIR__ . '/../models/user_model.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/models/user_model.php');
 
 class UserController
 {
@@ -9,7 +9,7 @@ class UserController
 
     public function __construct()
     {
-        $this->userModel = new UserModel(require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php"));
+        $this->userModel = new UserModel(include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php"));
     }
 
     public function index()

@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../models/room_model.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/models/room_model.php');
 
 class RoomController
 {
@@ -8,7 +8,7 @@ class RoomController
 
     public function __construct()
     {
-        $this->roomModel = new RoomModel(require(__DIR__ . "/../config/database.php"));
+        $this->roomModel = new RoomModel(include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/config/database.php'));
     }
 
     public function index()

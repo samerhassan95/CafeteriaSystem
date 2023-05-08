@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3906
--- Generation Time: May 02, 2023 at 09:55 AM
+-- Generation Time: May 07, 2023 at 10:22 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -32,6 +32,16 @@ CREATE TABLE `categories` (
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Coffee'),
+(2, 'Hot drinks'),
+(3, 'Cold drinks'),
+(4, 'Smoothies');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +58,25 @@ CREATE TABLE `orders` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `room_id`, `status`, `total_price`, `notes`, `created_at`) VALUES
+(8, 1, 1, 'processing', '35.00', 'asdasd', '2023-05-05 00:12:38'),
+(12, 1, 2, 'processing', '27.00', 'aaaaaaasdd', '2023-05-05 00:38:12'),
+(14, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 13:49:15'),
+(17, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 13:52:09'),
+(19, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 13:54:20'),
+(22, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 13:56:44'),
+(23, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 13:56:51'),
+(25, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 14:03:13'),
+(29, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 14:14:27'),
+(30, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 14:14:29'),
+(31, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 14:16:57'),
+(34, 1, 2, 'processing', '27.00', 'dddddddddddd', '2023-05-06 14:27:47'),
+(39, 2, 1, 'processing', '35.00', 'cvbcvbc', '2023-05-06 14:39:40');
+
 -- --------------------------------------------------------
 
 --
@@ -59,6 +88,38 @@ CREATE TABLE `order_items` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_id`, `product_id`, `quantity`) VALUES
+(8, 1, 1),
+(8, 5, 1),
+(12, 1, 1),
+(12, 4, 1),
+(14, 1, 1),
+(14, 4, 1),
+(17, 1, 1),
+(17, 4, 1),
+(19, 1, 1),
+(19, 4, 1),
+(22, 1, 1),
+(22, 4, 1),
+(23, 1, 1),
+(23, 4, 1),
+(25, 1, 1),
+(25, 4, 1),
+(29, 1, 1),
+(29, 4, 1),
+(30, 1, 1),
+(30, 4, 1),
+(31, 1, 1),
+(31, 4, 1),
+(34, 1, 1),
+(34, 4, 1),
+(39, 1, 1),
+(39, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -73,6 +134,19 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `price`, `category_id`, `image`) VALUES
+(1, 'Latte', '15.00', 1, 'latte.png'),
+(2, 'Cappuccino', '18.00', 1, 'cappuccino.png'),
+(3, 'Espresso', '10.00', 1, 'espresso.png'),
+(4, 'Americano', '12.00', 1, 'americano.png'),
+(5, 'Hot Chocolate', '20.00', 2, 'hot-chocolate.jpg'),
+(6, 'Iced Tea', '8.00', 3, 'iced-tea.jpg'),
+(7, 'Fruit Smoothie', '25.00', 4, 'fruit-smoothie.jpg');
 
 -- --------------------------------------------------------
 
@@ -90,7 +164,8 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`) VALUES
-(1, 'room1');
+(1, 'room1'),
+(2, 'Room 2');
 
 -- --------------------------------------------------------
 
@@ -116,7 +191,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `image`, `room_id`, `ext_attr`, `total_amount_price`, `is_admin`, `created_at`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', 'image/image', 1, 'some data', NULL, 0, '2023-05-02 09:27:43');
+(1, 'admin', '$2y$10$MjtpwIfUDcr8FeD1ubc.7u2.WhYx7pKwCyHxdjYBrtua1WNut33zu', 'admin@gmail.com', 'image/image', 2, 'some data', '0.00', 1, '2023-05-02 09:27:43'),
+(2, 'johndoe', '$2y$10$TepYDCVw.akFSYxL6OjqeewgSnn5FX5o7IOKrjPSRTNyc0D.bfpK.', 'johndoe@example.com', 'user1.jpg', 1, NULL, '0.00', 0, '2022-05-03 10:00:00'),
+(3, 'janedoe', '5ecr3t', 'janedoe@example.com', 'user2.jpg', 2, NULL, '0.00', 0, '2022-05-03 10:00:00'),
+(4, 'admin', '9#p@ss', 'admin@example.com', 'admin.jpg', NULL, NULL, '0.00', 1, '2022-05-03 10:00:00');
 
 --
 -- Indexes for dumped tables
@@ -171,31 +249,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

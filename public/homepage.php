@@ -1,7 +1,7 @@
 <?php
 // index.php
 
-require_once '../controllers/product_controller.php';
+include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/product_controller.php');
 
 $productController = new ProductController();
 $products = $productController->index();
