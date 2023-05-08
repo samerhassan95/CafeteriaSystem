@@ -12,16 +12,6 @@ require($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
 $UserController = new UserController();
 $users = $UserController->index();
 
-
-// if ($db) {
-//   $query = 'SELECT * FROM `cafeteria`.`users`;';
-//   $stmt = $db->prepare($query);
-//   $result = $stmt->execute();
-//   if ($result) {
-//     $users = $stmt->fetchAll(PDO::FETCH_OBJ);
-//   }
-// }
-
 ?>
 
 <!DOCTYPE html>
@@ -48,22 +38,12 @@ $users = $UserController->index();
     top: 0.4rem;
   }
 </style>
-<script>
-  // Edit in the navbar which we included
-  // document.querySelector('.nav-logo').src = '../../public/images/logo4.png';
-  // document.querySelector('.nav-link1').href = '../home.php'; // Home
-  // document.querySelector('.nav-link2').href = '#'; // Products
-  // document.querySelector('.nav-link3').href = './displayUsers.php'; // Users
-  // document.querySelector('.nav-link4').href = '#'; // Manual Order
-  // document.querySelector('.nav-link5').href = '#'; // Checks
-  // document.querySelector('.nav-link5').href = '#'; // Contact
-</script>
 
 <body>
   <div class="container">
-    <h1 class="text-center bg-dark text-white py-3 fw-bold"> <a href="addUser.php" class="button btn btn-primary mb-3">Add User</a>Cafeteria Users Accounts</h1>
+    <h1 class="text-center bg-white text-dark py-3 fw-bold"> <a href="addUser.php" class="button btn btn-primary mb-3">Add User</a>Cafeteria Users Accounts</h1>
 
-    <table class="table table-hover table-dark">
+    <table class="table table-hover table-bordered">
       <thead>
         <tr>
           <th>#</th>
@@ -99,7 +79,5 @@ $users = $UserController->index();
         <?php } ?>
       </tbody>
     </table>
-  </div>
 </body>
-
 </html>

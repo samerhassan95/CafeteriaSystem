@@ -32,26 +32,61 @@ class UserController
         $username = $_POST['username'];
         $password = $_POST['password'];
         $email = $_POST['email'];
-        $image = $_POST['image'];
+        $image = isset($_POST['image']) ? $_POST['image'] : null;
         $room_id = $_POST['room_id'];
         $ext_attr = $_POST['ext_attr'];
-        $total_amount_price = $_POST['total_amount_price'];
-        $is_admin = $_POST['is_admin'];
-
-        $result = $this->userModel->createUser($username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin);
-        if ($result) {
-            // User created successfully
-            $response = array(
-                'status' => 'success',
-                'message' => 'User created successfully.'
-            );
+        $total_amount_price = isset($_POST['total_amount_price']) && $_POST['total_amount_price'] !== '' ? $_POST['total_amount_price'] : null;
+        $is_admin = isset($_POST['is_admin']) ? $_POST['is_admin'] : 0;
+               
+        
+        $errors = [];
+    
+        if (isset($_FILES["img"]) && !empty($_FILES["img"]["name"])) {
+            $file_name = $_FILES["img"]["name"];
+            $file_size = $_FILES["img"]["size"];
+            $file_tmp = $_FILES["img"]["tmp_name"];
+            $file_type = $_FILES["img"]["type"];
+    
+            $allowed_extenstions=["png", "jpg", "jpeg"];
+            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+    
+            if (in_array($extension, $allowed_extenstions)) {
+                $imagespath = "images/{$file_name}";
+                $res = move_uploaded_file($file_tmp, $imagespath);
+            } else {
+                $errors["img"] = "Invalid image extension, allowed extensions are png, jpg and jpeg";
+            }
         } else {
-            // Failed to create user
+            $errors["img"] = "Image is required";
+        }
+    
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    
+        if (empty($errors)) {
+            $result = $this->userModel->createUser($username, $hashed_password, $email, $imagespath, $room_id, $ext_attr, $total_amount_price, $is_admin);
+    
+            if ($result) {
+                // User created successfully
+                $response = array(
+                    'status' => 'success',
+                    'message' => 'User created successfully.'
+                );
+                
+            } else {
+                // Failed to create user
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Failed to create user.'
+                );
+            }
+        } else {
+            // Errors found
             $response = array(
                 'status' => 'error',
-                'message' => 'Failed to create user.'
+                'message' => $errors["img"]
             );
         }
+    
         return json_encode($response);
     }
 
@@ -109,11 +144,11 @@ class UserController
             $password = $_POST['password'];
             $userroom = $_POST['room_id'];
             $userext = $_POST['ext_attr'];
-
+            $is_admin = isset($_POST['is_admin']) ? $_POST['is_admin'] : 0;
 
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $result = $this->userModel->updateUser($id, $username, $hashed_password, $useremail, $userroom, $userext);
+            $result = $this->userModel->updateUser($id, $username, $hashed_password, $useremail, $userroom, $userext,$is_admin);
 
 
 
@@ -156,6 +191,7 @@ class UserController
                 'status' => 'success',
                 'message' => 'User deleted successfully.'
             );
+            header("Location:displayUsers.php");
         } else {
             // Failed to delete user
             $response = array(
@@ -193,57 +229,71 @@ class UserController
 
     public function login()
     {
+    if (isset($_POST["email"]) && isset($_POST["password"])) {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
-        if (isset($_POST["email"]) && isset($_POST["password"])) {
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-
-            $row = $this->userModel->getUserByEmail($email);
-
-
-            if ($row !== false && password_verify($password, $row["password"]) && $row["is_admin"] == 0) {
-                session_start();
-                $_SESSION["email"] = $email;
-                $response = array(
-                    'status' => 'success',
-                    'message' => 'User logged successfully.',
-                    'admin' => 'false'
-                );
-                header("Location: user/userPage.php");
-            } elseif ($row !== false && password_verify($password, $row["password"]) && $row["is_admin"] == 1) {
-                session_start();
-                $_SESSION["email"] = $email;
-                $response = array(
-                    'status' => 'success',
-                    'message' => 'User logged successfully.',
-                    'admin' => 'true'
-                );
-            } else {
-                if ($row === false) {
-                    $response = array(
-                        'status' => 'error',
-                        'message' => 'Failed to login user.',
-                        'input' => 'Email',
-                        'error' => 'This Email does not exist'
-                    );
-                } else {
-                    $response = array(
-                        'status' => 'error',
-                        'message' => 'Failed to login user.',
-                        'input' => 'Password',
-                        'error' => 'Incorrect password'
-                    );
-                }
-            }
-        } else {
+        if(empty($email)){
             $response = array(
                 'status' => 'error',
                 'message' => 'Failed to login user.',
-                'input' => 'All',
-                'error' => 'Email or password not set'
+                'input' => 'Email',
+                'error' => 'Email field is required'
             );
+            return $response;
         }
 
-        return $response;
+        $row = $this->userModel->getUserByEmail($email);
+
+        if ($row !== false && password_verify($password, $row["password"]) && $row["is_admin"] == 0) {
+            session_start();
+            $_SESSION["email"] = $email;
+            $response = array(
+                'status' => 'success',
+                'message' => 'User logged successfully.',
+                'admin' => 'false'
+            );
+            header("Location: user/userPage.php");
+        } elseif ($row !== false && password_verify($password, $row["password"]) && $row["is_admin"] == 1) {
+            session_start();
+            $_SESSION["email"] = $email;
+            $response = array(
+                'status' => 'success',
+                'message' => 'User logged successfully.',
+                'admin' => 'true'
+            );
+        } else {
+            if ($row === false) {
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Failed to login user.',
+                    'input' => 'Email',
+                    'error' => 'This Email does not exist'
+                );
+            } else {
+                $response = array(
+                    'status' => 'error',
+                    'message' => 'Failed to login user.',
+                    'input' => 'Password',
+                    'error' => 'Incorrect password'
+                );
+            }
+        }
+    } else {
+        $response = array(
+            'status' => 'error',
+            'message' => 'Failed to login user.',
+            'input' => 'All',
+            'error' => 'Email or password not set'
+        );
     }
+    return $response;
 }
+}
+
+
+
+
+
+
+

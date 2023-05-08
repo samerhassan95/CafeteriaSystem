@@ -22,16 +22,6 @@ echo '
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <script>
-        // Edit in the navbar which we included
-        document.querySelector('.nav-logo').src = '../../public/images/logo4.png';
-        document.querySelector('.nav-link1').href = '../home.php'; // Home
-        document.querySelector('.nav-link2').href = '#'; // Products
-        document.querySelector('.nav-link3').href = './displayUsers.php'; // Users
-        document.querySelector('.nav-link4').href = '#'; // Manual Order
-        document.querySelector('.nav-link5').href = '#'; // Checks
-        document.querySelector('.nav-link5').href = '#'; // Contact
-    </script>
 </head>
 <body>
     <h1>This Is Admin Page</h1>

@@ -33,35 +33,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-  <section class="vh-100">
-    <div class="container-fluid h-custom ">
-      <div class="row d-flex justify-content-center align-items-center h-100 ">
-        <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="../../public/images/logo2.png" class="img-fluid" alt="logo" style="width: 75%; margin: 0 0 30px 25px ">
-        </div>
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 ">
-          <form action="" method="POST" class="border p-4">
-            <div class="form-outline mb-4">
-              <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter email address" />
-            </div>
-            <div class="text-danger"> <?php if (isset($errors["email"])) echo $errors["email"]; ?></div>
-            <div class="form-outline mb-3">
-              <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Enter password" />
-            </div>
-            <div class="text-danger"> <?php if (isset($errors["password"])) echo $errors["password"]; ?></div>
-            <div class="d-flex justify-content-between align-items-center">
-              <a href="forgotPassword.php" class="text-body">Forgot password?</a>
-            </div>
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="../../public/images/logo2.png" class="img-fluid" alt="logo" style="width: 75%; margin: 0 0 30px 25px ">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form action="" method="POST" class="border p-4">
+          <div class="form-outline mb-4">
+            <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter email address" />
+            <?php if (isset($result["input"]) && $result["input"] == "Email") { ?>
+              <div class="text-danger"><?php echo $result["error"]; ?></div>
+            <?php } ?>
+          </div>
+          <div class="form-outline mb-3">
+            <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="Enter password" />
+            <?php if (isset($result["input"]) && $result["input"] == "Password") { ?>
+              <div class="text-danger"><?php echo $result["error"]; ?></div>
+            <?php } ?>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="forgotPassword.php" class="text-body">Forgot password?</a>
+          </div>
 
-            <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            </div>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+          </div>
 
-          </form>
-        </div>
+        </form>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 </body>
 

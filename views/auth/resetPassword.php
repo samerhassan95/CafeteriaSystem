@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../public/styles/resetPassword.css">
+  <link rel="stylesheet" href="/cafeITI/public/styles/resetPassword.css">
   <title>Document</title>
 </head>
 
@@ -65,10 +65,13 @@ if (isset($_POST['submit'])) {
         <form method="post" action="">
           <div class="form-group">
             <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Enter new password">
-          </div><br>
+          </div>
+          <div class="text-danger"> <?php if (isset($errors["new_password"])) echo $errors["new_password"]; ?></div>
+          <br>
           <div class="form-group">
             <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm new password">
           </div>
+          <div class="text-danger"> <?php if (isset($errors["confirm_password"])) echo $errors["confirm_password"]; ?></div>
           <button type="submit" name="submit" class="btn btn-primary btn-block submit-btn">Confirm</button>
         </form>
       </div>

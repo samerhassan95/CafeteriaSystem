@@ -38,11 +38,11 @@ class UserModel
     }
 
 //    public function updateUser($id, $username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin)
-    public function updateUser($id, $username, $password, $email, $room_id, $ext_attr)
+    public function updateUser($id, $username, $password, $email, $room_id, $ext_attr,$is_admins)
     {
 //        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?, image = ?, room_id = ?, ext_attr = ?, total_amount_price = ?, is_admin = ? WHERE id = ?');
-        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?,  room_id = ?, ext_attr = ? WHERE id = ?');
-        return $stmt->execute([$username, $password, $email, $room_id, $ext_attr, $id]);
+        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?,  room_id = ?, ext_attr = ?, is_admin = ? WHERE id = ?');
+        return $stmt->execute([$username, $password, $email, $room_id, $ext_attr, $is_admins, $id]);
 //        return $stmt->execute([$username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin, $id]);
     }
 
@@ -61,3 +61,4 @@ class UserModel
         return $stmt->execute([$id]);
     }
 }
+

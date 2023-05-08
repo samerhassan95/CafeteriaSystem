@@ -1,20 +1,13 @@
 <?php
 
-require_once('../../config/database.php');
+// require_once('../../../../config/database.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
 
-if($db){
-    try {
-        $query = "DELETE FROM `cafeteria`.`users` WHERE id=:id";
-        $stmt = $db->prepare($query);
-        
-        $id = $_GET['id']; 
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT); 
-        
-        $query_execute = $stmt->execute();
-        header("Location:displayUsers.php");
-    } catch(PDOException $e){
-        echo $e->getMessage();
-    }
-}
+$userController = new UserController();
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $result = $userController->delete($id);
+} 
 
 ?>
