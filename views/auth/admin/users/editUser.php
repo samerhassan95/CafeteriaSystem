@@ -1,9 +1,9 @@
 <?php
-// echo '
-// <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-// <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-// <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-// ';
+echo '
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+';
 
 error_reporting(E_ERROR | E_PARSE);
 ## Get the old data
@@ -101,10 +101,10 @@ $rooms = $roomController->index();
               <option value="<?= $room['id'] ?>" <?php if ($row['room_id'] == $room['id'])  echo "selected" ?> >"<?= str_replace('"', '',$room['name']) ?>"</option>
 
             <?php endforeach; ?>
-            <!-- <option value="">Select Room Number</option>
-            <option value="1">Application 1</option>
-            <option value="2">Application 2</option>
-            <option value="3">Cloud</option> -->
+            <option value="">Select Room Number</option>
+            <option value="Room1">Room1</option>
+            <option value="Room2">Room2</option>
+            <option value="Room3">Room3</option>
           </select>
           <span class="text-danger"> <?php if (isset($errors['room_id']))  echo $errors['room_id']; ?></span>
         </div>
@@ -121,6 +121,13 @@ $rooms = $roomController->index();
           <span class="text-danger"> <?php if (isset($errors['ext_attr'])) echo $errors['ext_attr']; ?></span>
         </div>
       </div>
+      <div class="form-group">
+    <label for="is_admin">User Role</label>
+    <select name="is_admin" id="is_admin" class="form-control">
+        <option value="0" <?php if ($row['is_admin'] == 0) { echo 'selected'; } ?>>User</option>
+        <option value="1" <?php if ($row['is_admin'] == 1) { echo 'selected'; } ?>>Admin</option>
+    </select>
+    </div>
       <br>
       <div>
         <button type="submit" name="sub" value="submit" class="btn btn-info">Save</button>

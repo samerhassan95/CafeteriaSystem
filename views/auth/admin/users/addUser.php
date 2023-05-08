@@ -92,6 +92,13 @@
               <div class="text-danger"> <?php  if(isset($errors['ext_attr']))  echo $errors['ext_attr']; ?></div>
                 </div>
                 </div>
+                <div class="form-group">
+                    <label for="is_admin">User Role</label>
+                    <select name="is_admin" id="is_admin" class="form-control">
+                    <option value="0">User</option>
+                    <option value="1">Admin</option>
+                </select>
+                </div>
                 <div class="form-row">     
                   <div class="form-group col-lg-12">
                     <div class="custom-file">

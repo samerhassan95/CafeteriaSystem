@@ -1,89 +1,89 @@
 <?php
 
+<<<<<<< HEAD
+// require_once('../../config/database.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
+
+
+$UserController = new UserController();
+=======
 include('../../config/database.php');
+>>>>>>> eeb8b46d1482b4e55a962cad0c2cc60aadd6afa9
 
 $errors = [];
-$formvalues = [];
-            // Start Validation of the Users Data
+$formvalues =[];
+
 if(!empty($_POST["sub"])) {
-    $fields = [
-        "username" => "Username",
-        "email" => "Email",
-        "password" => "Password",
-        "confirm" => "Confirm password",
-        "room_id" => "NO.ROOM",
-        "ext_attr" => "NO.exit"
-    ];
+    if($_POST["username"]) {
+        $username = $_POST["username"];
+    } else {
+        $errors["username"] = "username is Required";
+    }
 
-    foreach($fields as $field => $label) {
-        if(empty($_POST[$field])) {
-            $errors[$field] = "$label is Required";
+    if($_POST["email"]) {
+        if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            $email = $_POST["email"];
         } else {
-            $formvalues[$field] = $_POST[$field];
+            $errors["email"] = "Email is Invalid";
         }
+    } else {
+        $errors["email"] = "Email is Required";    
     }
 
-    if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-        $errors["email"] = "Email is Invalid";
+    if($_POST["password"]) {
+        $password = $_POST["password"];
+    } else {
+        $errors["password"] = "Password is Required";
     }
-
-    if($_POST["confirm"] != $_POST["password"]){
-        $errors["confirm"] = "Password isn't matched";
-    }
-
-
-              if (isset($_FILES["img"]) && !empty($_FILES["img"]["name"])) {
-                $file_name = $_FILES["img"]["name"];
-                $file_size = $_FILES["img"]["size"];
-                $file_tmp = $_FILES["img"]["tmp_name"];
-                $file_type = $_FILES["img"]["type"];
     
-                $allowed_extenstions=["png", "jpg", "jpeg"];
-                $extension = pathinfo($file_name, PATHINFO_EXTENSION);
-    
-                if (in_array($extension, $allowed_extenstions)) {
-                    $imagespath = "images/{$file_name}";
-                    $res = move_uploaded_file($file_tmp, $imagespath);
-                } else {
-                    $errors["img"] = "Invalid image extension, allowed extensions are png, jpg and jpeg";
-                }
-            } else {
-                $errors["img"] = "Image is required";
-            }
+    if($_POST["confirm"]) {
+        $confirm_Pass = $_POST["confirm"];
+        if($confirm_Pass != $password) {
+            $errors["confirm"] = "Password isn't matched";
+        }
+    } else {
+        $errors["confirm"] = "Confirm password is Required";
+    }
 
-    $formerrors = json_encode($errors);
+    if($_POST["room_id"] != "") {
+        $room_id = $_POST["room_id"];
+    } else {
+        $errors["room_id"] = "NO.ROOM is Required";
+    }
+    
+    if($_POST["ext_attr"]) {
+        $ext_attr = $_POST["ext_attr"];
+    } else {
+        $errors["ext_attr"] = "NO.exit is Required";
+    }
+        
+    $formvalues = [
+        "username" => $username,
+        "email" => $email,
+        "room_id" => $room_id,
+        "ext_attr" => $ext_attr
+    ];
 
     if($errors) {
         var_dump($formerrors);
-        $redirect_url = "Location:addUser.php?errors={$formerrors}";
+        $redirect_url = "Location: ../../views/auth/admin/users/addUser.php?errors={$formerrors}";
         if ($formvalues) {
             $oldvalues = json_encode($formvalues);
             $redirect_url .= "&old={$oldvalues}" ;
         }
         header($redirect_url);
+    } else {
+        $result = $UserController->store();
+        $response = json_decode($result, true);
+        if ($response["status"] == "success") {
+            header("Location: ../../views/auth/admin/users/displayUsers.php");
+        } 
     }
 
-    // End  Validation of the Users Data
-    
-    // Insert the Data of User inside the Database
-    if(!$errors) {
-        $hashed_password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO `users` (`username`, `password`, `email`, `image`, `room_id`, `ext_attr`)
-                VALUES (:username, :password, :email, :image, :room_id, :ext_attr)";
-
-        $stmtinsert = $db->prepare($sql);
-        $stmtinsert->bindParam(':username', $_POST["username"], PDO::PARAM_STR);
-        $stmtinsert->bindParam(':password', $hashed_password, PDO::PARAM_STR);
-        $stmtinsert->bindParam(':email', $_POST["email"], PDO::PARAM_STR);
-        $stmtinsert->bindParam(':image', $imagespath, PDO::PARAM_STR);
-        $stmtinsert->bindParam(':room_id', $_POST["room_id"], PDO::PARAM_STR);
-        $stmtinsert->bindParam(':ext_attr', $_POST["ext_attr"], PDO::PARAM_INT);
-        $result = $stmtinsert->execute();
-        header("Location:displayUsers.php");
-    }
-} else if (isset($_POST["reset"])) {
-    header("Location: addUser.php");
+} else if (($_POST["reset"])) {
+    header("Location: ../../views/auth/admin/users/addUser.php");
 }
 
 ?>
+
+
