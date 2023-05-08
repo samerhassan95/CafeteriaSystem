@@ -1,4 +1,5 @@
 <?php
+include( '../../../views/navbar.php');
 include '../../product_controller.php';
 $productController = new ProductController();
 $products = $productController->getAllProducts();

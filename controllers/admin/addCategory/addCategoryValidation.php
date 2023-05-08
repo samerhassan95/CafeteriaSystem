@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         exit();
     }
     else{
-        $db = include('C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\config\database.php');
+        $db = include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php");
         $stmt = $db->prepare("INSERT INTO categories (name) VALUES (:name)");
         $stmt->bindParam(':name', $_POST['cat_name']);
         $result = $stmt->execute();

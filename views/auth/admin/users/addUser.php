@@ -1,4 +1,5 @@
 <?php
+    include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/views/navbar.php");
     if($_GET){
         $errors = json_decode($_GET['errors']);
     }

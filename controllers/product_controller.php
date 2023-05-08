@@ -1,8 +1,8 @@
 <?php
 // controllers/product.php
 
-require_once 'C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\models\product_model.php';
-
+// require_once 'C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\models\product_model.php';
+require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/models/product_model.php");
 
 class ProductController
 {
@@ -12,7 +12,7 @@ class ProductController
 
     public function __construct()
     {
-        $db = include ('C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\config\database.php');
+        $db = include ($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php");
         $ProductModel = new ProductModel($db);
         $this->productModel = $ProductModel;
     }

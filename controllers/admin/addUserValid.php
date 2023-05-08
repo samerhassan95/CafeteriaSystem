@@ -1,14 +1,10 @@
 <?php
 
-<<<<<<< HEAD
 // require_once('../../config/database.php');
 require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/controllers/user_controller.php");
 
 
 $UserController = new UserController();
-=======
-include('../../config/database.php');
->>>>>>> eeb8b46d1482b4e55a962cad0c2cc60aadd6afa9
 
 $errors = [];
 $formvalues =[];

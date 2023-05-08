@@ -127,8 +127,8 @@ INSERT INTO `order_items` (`order_id`, `product_id`, `quantity`) VALUES
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `product` (
+  `id` int(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `category_id` int(11) DEFAULT NULL,

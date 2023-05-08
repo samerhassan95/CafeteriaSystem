@@ -11,7 +11,7 @@ if (!isset($_SESSION["email"])) {
 include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/product_controller.php');
 
 $productController = new ProductController();
-$products = $productController->index();
+$products = $productController->getAllProducts();
 ?>
 
 <!DOCTYPE html>

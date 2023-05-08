@@ -1,5 +1,7 @@
 <?php
 session_start();
+include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/views/navbar.php");
+
 if(isset($_SESSION['errors'])){
     if(isset($_SESSION['errors']['name']))
         $name_err = $_SESSION['errors']['name'];

@@ -1,5 +1,7 @@
 <?php
 session_start();
+include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/views/navbar.php");
+
 if(isset($_SESSION['errors'])){
     if(isset($_SESSION['errors']['name']))
         $name_err = $_SESSION['errors']['name'];
@@ -56,7 +58,7 @@ if(isset($_SESSION['errors'])){
 
             <div class="d-flex justify-content-between align-items-center">
                 <?php
-                $db = include('C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\config\database.php');
+                $db = include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php");
                 $query = "SELECT * FROM categories";
                 $stmt = $db->prepare($query);
                 $stmt->execute();

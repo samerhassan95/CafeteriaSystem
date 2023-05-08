@@ -36,24 +36,15 @@ echo '
             <a class="nav-link1 nav-link" href="/cafeITI/views/auth/admin/adminPage.php"><i class="bi bi-house-fill me-2"></i>Home</a>
           </li>
           <li class="nav-item dropdown rounded">
-            <a class="nav-link2 nav-link" href=""><i class="bi bi-card-image me-2"></i>Products</a>
+            <a class="nav-link2 nav-link" href="/cafeITI/controllers/admin/productActions/allProducts.php"><i class="bi bi-card-image me-2"></i>Products</a>
           </li>
           <li class="nav-item dropdown rounded">
              <!-- <a class="nav-link3 nav-link" href="http://localhost/cafeITI/views/auth/admin/users/displayUsers.php" id="shopDropdown"><i class="bi bi-cart4 me-2"></i>Users</a> -->
              <a class="nav-link3 nav-link" href="/cafeITI/views/auth/admin/users/displayUsers.php" id="shopDropdown"><i class="bi bi-cart4 me-2"></i>Users</a>
           </li>
-<<<<<<< HEAD
           <li class="nav-item dropdown rounded">
             <a class="nav-link4 nav-link dropdown-toggle" href="#" id="pagesDropdown" data-bs-toggle="dropdown">Manual Order</a>
           </li>
-=======
-            <li class="nav-item dropdown rounded">
-                <a class="nav-link3 nav-link" href="http://localhost/cafeITI/views/auth/admin/orders/displayOrders.php" id="shopDropdown"><i class="bi bi-cart4 me-2"></i>Orders</a>
-            </li>
-<!--          <li class="nav-item dropdown rounded">-->
-<!--            <a class="nav-link4 nav-link dropdown-toggle" href="http://localhost/cafeITI/views/auth/admin/users/" id="pagesDropdown" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-text-fill me-2"></i>Manual Order</a>-->
-<!--          </li>-->
->>>>>>> eeb8b46d1482b4e55a962cad0c2cc60aadd6afa9
           <li class="nav-item rounded">
             <a class="nav-link5 nav-link" href="#"><i class="bi bi-people-fill me-2"></i>Checks</a>
           </li>
