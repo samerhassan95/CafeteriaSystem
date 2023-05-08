@@ -15,10 +15,10 @@ class OrderController
         // Fetch a list of all orders from the database
         return $this->orderModel->getAllOrders();
 
-//        // Display the list of orders
-//        foreach ($orders as $order) {
-//            echo "<p>Order ID: " . $order['id'] . ", User ID: " . $order['user_id'] . ", Room ID: " . $order['room_id'] . ", Start Date: " . $order['start_date'] . ", End Date: " . $order['end_date'] . ", Amount Price: " . $order['amount_price'] . "</p>";
-//        }
+        //        // Display the list of orders
+        //        foreach ($orders as $order) {
+        //            echo "<p>Order ID: " . $order['id'] . ", User ID: " . $order['user_id'] . ", Room ID: " . $order['room_id'] . ", Start Date: " . $order['start_date'] . ", End Date: " . $order['end_date'] . ", Amount Price: " . $order['amount_price'] . "</p>";
+        //        }
     }
 
     public function show($id)
@@ -113,8 +113,8 @@ class OrderController
     public function delete($id)
     {
         // Delete the specified order from the database
-        $this->orderModel->deleteOrder($id);
-
+        $deletedOrder = $this->orderModel->deleteOrder($id);
+        return $this->orderModel->getAllOrders();
         header("Location: /index.php");
         exit;
     }
