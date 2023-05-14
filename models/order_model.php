@@ -44,6 +44,39 @@ class OrderModel
         return $order;
     }
 
+    public function getLastOrder($id)
+    {
+        $stmt = $this->db->prepare('SELECT * FROM Orders WHERE user_id = :id order by id DESC limit 1');
+        $stmt->execute(array(':id' => $id));
+        $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Get the order items for the order
+        $stmt = $this->db->prepare('SELECT * FROM `order_items` WHERE order_id = :order_id');
+        $stmt->execute(array(':order_id' => $order['id']));
+        $order_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $order['order_items'] = $order_items;
+        return $order;
+    }
+
+    public function getCurrentOrder()
+    {
+        $stmt = $this->db->prepare('SELECT * FROM orders WHERE status like "processing" order by id DESC');
+        $stmt->execute();
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($orders as &$order) {
+            $stmt = $this->db->prepare('SELECT * FROM `order_items` WHERE order_id = :order_id');
+            $stmt->execute(array(':order_id' => $order['id']));
+            $order_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $order['order_items'] = $order_items;
+//            var_dump($order);
+        }
+
+        return $orders;
+    }
+
 
     public function createOrder($user_id, $room_id, $status, $total_price, $notes, $order_items)
     {
@@ -84,6 +117,12 @@ class OrderModel
     {
         $stmt = $this->db->prepare('UPDATE orders SET user_id = ?, room_id = ?, start_date = ?, end_date = ?, amount_price = ?, updated_at = NOW() WHERE id = ?');
         return $stmt->execute([$user_id, $room_id, $start_date, $end_date, $amount_price, $id]);
+    }
+
+    public function updateOrderState($id,$status)
+    {
+        $stmt = $this->db->prepare('UPDATE orders SET status = ? WHERE id = ?');
+        return $stmt->execute([$status, $id]);
     }
 
     public function deleteOrder($id)

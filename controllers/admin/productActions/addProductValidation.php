@@ -3,7 +3,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $image = $_FILES['prd_img']['name'];
-    $target_dir = "\public\images";
+    $target_dir = $_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/public/images/products/";
     $target_file = $target_dir . basename($image);
     $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
     $file_extension = strtolower(pathinfo($_FILES['prd_img']['name'], PATHINFO_EXTENSION));
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if(count($errors)>0){
         $_SESSION['errors'] = $errors;
         $_SESSION['oldValues'] = $oldValues;
-        header("Location: addProduct.php");
+        header("Location: /CafeteriaSystem/views/admin/products/addProduct.php");
         exit();
     }
     else{
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errors['img'] = "Product image is required";
         }
 
-        include '../../product_controller.php';
+        include($_SERVER["DOCUMENT_ROOT"] . '/CafeteriaSystem/controllers/product_controller.php');
         $productController = new ProductController();
         $productController->store();
     }

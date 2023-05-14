@@ -24,6 +24,20 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUsers()
+    {
+        $stmt = $this->db->prepare('SELECT * FROM users WHERE is_admin = 0');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAdminUsers()
+    {
+        $stmt = $this->db->prepare('SELECT * FROM users WHERE is_admin = 1');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getUserByEmail($email)
     {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');
@@ -37,13 +51,16 @@ class UserModel
         return $stmt->execute([$username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin]);
     }
 
-//    public function updateUser($id, $username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin)
-    public function updateUser($id, $username, $password, $email, $room_id, $ext_attr,$is_admins)
+    public function updateUser($id, $username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin)
     {
-//        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?, image = ?, room_id = ?, ext_attr = ?, total_amount_price = ?, is_admin = ? WHERE id = ?');
-        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?,  room_id = ?, ext_attr = ?, is_admin = ? WHERE id = ?');
-        return $stmt->execute([$username, $password, $email, $room_id, $ext_attr, $is_admins, $id]);
-//        return $stmt->execute([$username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin, $id]);
+        $stmt = $this->db->prepare('UPDATE users SET username = ?, password = ?, email = ?, image = ?, room_id = ?, ext_attr = ?, total_amount_price = ?, is_admin = ? WHERE id = ?');
+        return $stmt->execute([$username, $password, $email, $image, $room_id, $ext_attr, $total_amount_price, $is_admin, $id]);
+    }
+
+    public function updateUserTotalAmount($id,$total_amount_price)
+    {
+        $stmt = $this->db->prepare('UPDATE users SET total_amount_price = ? WHERE id = ?');
+        return $stmt->execute([$total_amount_price, $id]);
     }
 
     public function updateUserPassword($email, $password)

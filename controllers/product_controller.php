@@ -2,7 +2,7 @@
 // controllers/product.php
 
 // require_once 'C:\xampp\htdocs\CafeSystem2\CafeteriaSystem\models\product_model.php';
-require_once($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/models/product_model.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/models/product_model.php");
 
 class ProductController
 {
@@ -12,7 +12,7 @@ class ProductController
 
     public function __construct()
     {
-        $db = include ($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php");
+        $db = include ($_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/config/database.php");
         $ProductModel = new ProductModel($db);
         $this->productModel = $ProductModel;
     }
@@ -43,13 +43,13 @@ class ProductController
     {
         $name = $_POST['prd_name'];
         $price = $_POST['prd_price'];
-        $category_id = 9;
+        $category_id = $_POST['prd_cat'];
         $image = $_FILES['prd_img']['name'];
         // validate input
         $result = $this->productModel->createProduct($name, $price, $category_id, $image);
         if ($result) {
             // redirect to the list of products with success message
-            header("Location:allProducts.php");
+            header("Location: /CafeteriaSystem/views/admin/products/allProducts.php");
         } else {
             // reload the form with error message
             echo 'no';
@@ -62,16 +62,17 @@ class ProductController
         // load the view to display the form to edit the product, passing in the $product array as a variable
     }
 
-    public function update($id)
+    public function update()
     {
         $id = $_GET['id'];
         $name = $_POST['prd_name'];
         $price = $_POST['prd_price'];
-        $category_id = $_POST['cat_id'];
+        $category_id = $_POST['prd_cat'];
+        $image = $_FILES['prd_img']['name'];
 
         // validate input
 
-        $result = $this->productModel->updateProduct($id, $name, $price, $category_id);
+        $result = $this->productModel->updateProduct($id,$name, $price, $category_id, $image);
         if ($result) {
             // redirect to the list of products with success message
         } else {

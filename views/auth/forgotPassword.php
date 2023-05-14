@@ -3,7 +3,7 @@ echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstra
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>';
 
 
-include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/user_controller.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/CafeteriaSystem/controllers/user_controller.php');
 
 $UserController = new UserController();
 
@@ -44,7 +44,7 @@ if (isset($_REQUEST['submit'])) {
   <div class="d-flex justify-content-center">
     <div class="card text-center" style="width: 300px; margin-top: 80px">
       <div class="card-header h5 text-white bg-primary">Password Reset</div>
-      <img src="../../public/images/padlock.png" class="img-fluid mx-auto" style="max-width: 140px; height: auto; margin-top: 20px;">
+      <img src="http://localhost/CafeteriaSystem/public/images/padlock.png" class="img-fluid mx-auto" style="max-width: 140px; height: auto; margin-top: 20px;">
       <div class="card-body px-5">
         <form id="validate_form" method="post">
           <div class="form-group">

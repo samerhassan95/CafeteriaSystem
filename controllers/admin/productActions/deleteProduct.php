@@ -1,7 +1,8 @@
 <?php
 
 $id = $_GET['id'];
-include '../../product_controller.php';
+include($_SERVER["DOCUMENT_ROOT"] . '/CafeteriaSystem/controllers/product_controller.php');
 $productController = new ProductController();
 $productController->delete($id);
-header("Location:allProducts.php");
+header('Location: /CafeteriaSystem/views/admin/products/allProducts.php');
+exit();

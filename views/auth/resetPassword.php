@@ -10,7 +10,7 @@ if (!isset($_SESSION["email"])) {
   exit();
 }
 
-include($_SERVER["DOCUMENT_ROOT"] . '/cafeITI/controllers/user_controller.php');
+include($_SERVER["DOCUMENT_ROOT"] . '/CafeteriaSystem/controllers/user_controller.php');
 $UserController = new UserController();
 
 // Get the email from the session

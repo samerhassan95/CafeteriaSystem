@@ -1,13 +1,19 @@
 <?php
 // controllers/order_controller.php
-include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/models/order_model.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/models/order_model.php");
+
+//include($_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/controller/user_controller.php");
+
+
+
+
 class OrderController
 {
     private $orderModel;
 
     public function __construct()
     {
-        $this->orderModel = new OrderModel(include($_SERVER["DOCUMENT_ROOT"] . "/cafeITI/config/database.php"));
+        $this->orderModel = new OrderModel(include($_SERVER["DOCUMENT_ROOT"] . "/CafeteriaSystem/config/database.php"));
     }
 
     public function index()
@@ -43,6 +49,9 @@ class OrderController
     {
         $order_id = $this->orderModel->createOrder($user_id, $room_id, $status, $total_price, $notes, $order_items);
         if ($order_id) {
+            include "user_controller.php";
+            $user_controller = new UserController();
+            $user_controller->updateUserTotalAmount($user_id,$total_price);
             // Order created successfully
             $response = array(
                 'status' => 'success',
@@ -62,6 +71,63 @@ class OrderController
     public function getOrderById($id)
     {
         $order = $this->orderModel->getOrderById($id);
+        if ($order) {
+            // Order found
+            $response = array(
+                'status' => 'success',
+                'order' => $order
+            );
+        } else {
+            // Order not found
+            $response = array(
+                'status' => 'error',
+                'message' => 'Order not found.'
+            );
+        }
+        return json_encode($response);
+    }
+
+    public function getLastOrder($id)
+    {
+        $order = $this->orderModel->getLastOrder($id);
+        if ($order) {
+            // Order found
+            $response = array(
+                'status' => 'success',
+                'order' => $order
+            );
+        } else {
+            // Order not found
+            $response = array(
+                'status' => 'error',
+                'message' => 'Order not found.'
+            );
+        }
+        return json_encode($response);
+    }
+
+    public function getCurrentOrder()
+    {
+        $order = $this->orderModel->getCurrentOrder();
+        if ($order) {
+            // Order found
+            $response = array(
+                'status' => 'success',
+                'order' => $order
+            );
+        } else {
+            // Order not found
+            $response = array(
+                'status' => 'error',
+                'message' => 'Order not found.'
+            );
+        }
+        return json_encode($response);
+    }
+
+    public function updateOrderState($id,$status)
+    {
+        $order = $this->orderModel->updateOrderState($id,$status);
         if ($order) {
             // Order found
             $response = array(
